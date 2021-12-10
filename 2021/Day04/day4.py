@@ -13,14 +13,11 @@ class BingoBoard:
 
         for i in range(self.line_length):
             new_row = []
-            for j in range(self.line_length):
-                new_row.append(numbers[j + i*self.line_length])
-            self.rows.append(new_row)
-
-        for i in range(self.line_length):
             new_column = []
             for j in range(self.line_length):
+                new_row.append(numbers[j + i*self.line_length])
                 new_column.append(numbers[i + j * self.line_length])
+            self.rows.append(new_row)
             self.columns.append(new_column)
 
     @staticmethod
