@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def parse_input_question_1():
+def power_consumption():
 
     occurrence_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -27,7 +27,7 @@ def parse_input_question_1():
     gamma = int(gamma_str, 2)
     epsilon = int(epsilon_string, 2)
 
-    print(f'Answer Q1: {gamma*epsilon}')
+    print(f'Answer Q1 (Power Consumption): {gamma*epsilon}')
 
 
 def find_rating(nbr_list, iteration, oxygen):
@@ -60,7 +60,7 @@ def find_rating(nbr_list, iteration, oxygen):
         return find_rating(new_list, iteration+1, oxygen)
 
 
-def parse_input_question_2():
+def life_support_rating():
     with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
         number_list = [x.strip("\n") for x in file.readlines()]
 
@@ -70,10 +70,10 @@ def parse_input_question_2():
     oxygen_rating = int(oxygen_rating_str, 2)
     co2_rating = int(co2_rating_str, 2)
 
-    print(f'Answer Q2: {oxygen_rating*co2_rating}')
+    print(f'Answer Q2 (Life Support Rating): {oxygen_rating*co2_rating}')
 
 
 if __name__ == '__main__':
-    parse_input_question_1()
-    parse_input_question_2()
+    power_consumption()
+    life_support_rating()
 
