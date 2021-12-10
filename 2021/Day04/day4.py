@@ -9,7 +9,6 @@ class BingoBoard:
     def __init__(self, numbers):
         self.rows = []
         self.columns = []
-        self.diagonals = []
         self.all_numbers = numbers
 
         for i in range(self.line_length):
@@ -24,16 +23,6 @@ class BingoBoard:
                 new_column.append(numbers[i + j * self.line_length])
             self.columns.append(new_column)
 
-        new_diagonal = []
-        for i in range(self.line_length):
-            new_diagonal.append(numbers[i + (self.line_length * i)])
-        self.diagonals.append(new_diagonal)
-
-        new_diagonal = []
-        for i in range(self.line_length):
-            new_diagonal.append(numbers[(self.line_length - i - 1) + (self.line_length * i)])
-        self.diagonals.append(new_diagonal)
-
     @staticmethod
     def all_marked(line, drawn_numbers):
         return all(x in drawn_numbers for x in line)
@@ -45,13 +34,10 @@ class BingoBoard:
         for column in self.columns:
             if self.all_marked(column, drawn_numbers):
                 return True
-        for diagonal in self.diagonals:
-            if self.all_marked(diagonal, drawn_numbers):
-                return True
         return False
 
-    def get_non_picked_nbr_sum(self, drawn_nbrs):
-        return sum(list(set(self.all_numbers) - set(drawn_nbrs)))
+    def get_non_picked_nbr_sum(self, drawn_numbers):
+        return sum(list(set(self.all_numbers) - set(drawn_numbers)))
 
 
 def get_draw_numbers_and_boards():
