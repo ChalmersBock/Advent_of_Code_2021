@@ -1,10 +1,11 @@
 import os
 import sys
+from collections import deque
 
 
 def count_increase(block_size):
     counter = 0
-    queue = []
+    queue = deque()
 
     with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
         for line in file.readlines():
@@ -14,7 +15,7 @@ def count_increase(block_size):
             else:
                 old_depth = sum(queue)
                 queue.append(new_value)
-                queue.pop(0)
+                queue.popleft()
                 new_depth = sum(queue)
                 if new_depth > old_depth:
                     counter += 1
