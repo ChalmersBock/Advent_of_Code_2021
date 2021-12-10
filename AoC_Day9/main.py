@@ -3,7 +3,6 @@ import sys
 
 
 def lava_tubes(height_map):
-
     total_sum = 0
     lowest_points = []
 
