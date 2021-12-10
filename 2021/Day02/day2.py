@@ -23,8 +23,8 @@ def find_position(with_aim):
             else:
                 print(f'Undefined action: {action}')
 
-            if not with_aim:
-                depth = down_up_value
+        if not with_aim:
+            depth = down_up_value
 
     print(f'Answer Q2: {horizontal_pos * depth}')
 
