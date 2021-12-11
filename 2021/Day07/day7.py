@@ -1,5 +1,3 @@
-import os
-import sys
 import math
 from numpy import median
 
@@ -37,7 +35,7 @@ def calculate_crab_fuel_average(crab_positions):
 
 
 if __name__ == '__main__':
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         positions = list(map(int, file.read().split(",")))
 
     calculate_crab_fuel_median(positions)

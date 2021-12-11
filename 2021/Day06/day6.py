@@ -1,9 +1,5 @@
-import os
-import sys
-
-
 def lanternfish_growth(nbr_days):
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         start_fish = file.readline().split(",")
 
         fish_timer = {}

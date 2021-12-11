@@ -1,5 +1,3 @@
-import os
-import sys
 from collections import deque
 
 
@@ -7,7 +5,7 @@ def count_increase(block_size):
     counter = 0
     queue = deque()
 
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         for line in file.readlines():
             new_value = int(line)
             if len(queue) < block_size:

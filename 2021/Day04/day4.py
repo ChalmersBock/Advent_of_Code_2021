@@ -1,7 +1,3 @@
-import os
-import sys
-
-
 class BingoBoard:
     line_length = 5  # Hardcoded size of a line
 
@@ -38,7 +34,7 @@ class BingoBoard:
 
 
 def get_draw_numbers_and_boards():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         draw_numbers = file.readline().rstrip().split(",")
         bingo_boards = []  # To store the board objects
         numbers_list = []  # For storing all numbers in the file

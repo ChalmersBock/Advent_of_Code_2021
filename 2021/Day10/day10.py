@@ -1,6 +1,3 @@
-import os
-import sys
-
 match_dict = {
     '(': ')',
     '[': ']',
@@ -24,7 +21,7 @@ value_leftovers = {
 
 
 def find_corruption():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         errors = []
         non_corrupt_lines = []
         for line in file.readlines():

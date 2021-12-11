@@ -1,8 +1,5 @@
-import os
-import sys
-
 def calculate_hydrothermal_vents(consider_diagonal):
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         vent_lines = []
 
         for line in file.readlines():
@@ -43,15 +40,16 @@ def calculate_hydrothermal_vents(consider_diagonal):
                 ocean_floor[vent["x1"] + x_stride*index][vent["y1"] + y_stride*index] += 1
 
     lines_overlap = 0
-    for x in range(size):
-        for y in range(size):
-            if ocean_floor[x][y] >= 2:
+    for i in range(size):
+        for j in range(size):
+            if ocean_floor[i][j] >= 2:
                 lines_overlap += 1
 
     if consider_diagonal:
         print(f'Answer Q2: {lines_overlap}')
     else:
         print(f'Answer Q1: {lines_overlap}')
+
 
 if __name__ == '__main__':
     calculate_hydrothermal_vents(False)

@@ -1,10 +1,6 @@
-import os
-import sys
-
-
 def parse_file():
     octopus_grid = []
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         for line in file.readlines():
             line = line.strip()
             row = []

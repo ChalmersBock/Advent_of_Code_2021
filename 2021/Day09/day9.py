@@ -1,7 +1,3 @@
-import os
-import sys
-
-
 def lava_tubes(height_map):
     total_sum = 0
     lowest_points = []
@@ -53,7 +49,7 @@ def largest_basins(height_map, points):
 
 
 def parse_file():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         height_map = []
         for line in file.readlines():
             row = []

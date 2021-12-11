@@ -1,12 +1,8 @@
-import os
-import sys
-
-
 def power_consumption():
 
     occurrence_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         for line in file.readlines():
             for index in range(12):
                 if line[index] == "1":
@@ -61,7 +57,7 @@ def find_rating(nbr_list, iteration, oxygen):
 
 
 def life_support_rating():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         number_list = [x.strip("\n") for x in file.readlines()]
 
         oxygen_rating_str = find_rating(number_list, 0, True)

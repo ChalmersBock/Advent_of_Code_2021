@@ -1,13 +1,9 @@
-import os
-import sys
-
-
 def find_position(with_aim):
     horizontal_pos = 0
     depth = 0
     down_up_value = 0
 
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         for line in file.readlines():
             action, amount_str = line.split(" ")
             amount = int(amount_str)

@@ -1,5 +1,3 @@
-import os
-import sys
 import re
 
 
@@ -82,7 +80,7 @@ def get_number_from_code(dec, code):
 
 
 def count_unique_digits_in_output():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         counter = 0
         for line in file.readlines():
             _, output = line.split("|")
@@ -95,7 +93,7 @@ def count_unique_digits_in_output():
 
 
 def sum_of_outputs():
-    with open(os.path.join(sys.path[0], "data"), "r", encoding='utf-8') as file:
+    with open("data", "r", encoding='utf-8') as file:
         output_sum = 0
         for line in file.readlines():
             inp, output = line.split("|")
