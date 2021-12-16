@@ -1,4 +1,4 @@
-import sys
+import math
 
 
 class Package:
@@ -12,32 +12,23 @@ class Package:
 
     def calculate_package(self):
         value = 0
+        sub_list = [x.calculate_package() for x in self.sub_packages]
         if self.type_id == 0:
-            for package in self.sub_packages:
-                value += package.calculate_package()
+            value = sum(sub_list)
         elif self.type_id == 1:
-            value = 1
-            for package in self.sub_packages:
-                value *= package.calculate_package()
+            value = math.prod(sub_list)
         elif self.type_id == 2:
-            value = sys.maxsize
-            for package in self.sub_packages:
-                value = min(value, package.calculate_package())
+            value = min(sub_list)
         elif self.type_id == 3:
-            value = -1
-            for package in self.sub_packages:
-                value = max(value, package.calculate_package())
+            value = max(sub_list)
         elif self.type_id == 4:
             value = self.value
         elif self.type_id == 5:
-            if self.sub_packages[0].calculate_package() > self.sub_packages[1].calculate_package():
-                value = 1
+            value = sub_list[0] > sub_list[1]
         elif self.type_id == 6:
-            if self.sub_packages[0].calculate_package() < self.sub_packages[1].calculate_package():
-                value = 1
+            value = sub_list[0] < sub_list[1]
         elif self.type_id == 7:
-            if self.sub_packages[0].calculate_package() == self.sub_packages[1].calculate_package():
-                value = 1
+            value = sub_list[0] == sub_list[1]
         return value
 
 
@@ -85,7 +76,6 @@ def identify_package(bit_stack):
             number_of_sub_packages = parse_bits_to_int(bit_stack, 11)
             for _ in range(number_of_sub_packages):
                 package.sub_packages.append(identify_package(bit_stack))
-
     else:
         package.value = parse_literal_value(bit_stack)
 
@@ -117,7 +107,6 @@ def parse_file():
             package_stack.append(pack)
 
     print(f'Total sum of versions: {total_version_sum}')
-
     print(f'Value of outer most package: {package.calculate_package()}')
 
 
