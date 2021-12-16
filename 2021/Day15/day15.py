@@ -13,18 +13,16 @@ def add_edges(graph, grid, i, j):
 
 
 def parse_file(repetitions):
+    with open("data", "r", encoding='utf-8') as file:
+        lines = file.readlines()
     grid = []
     for rep_y in range(repetitions):
-        with open("data", "r", encoding='utf-8') as file:
-            for line in [x.strip() for x in file.readlines()]:
-                row = []
-                for rep_x in range(repetitions):
-                    for value in [int(x) for x in line]:
-                        real_value = ((value + rep_y + rep_x - 1) % 9) + 1
-                        if real_value > 9:
-                            real_value = 1
-                        row.append(real_value)
-                grid.append(row)
+        for line in [x.strip() for x in lines]:
+            row = []
+            for rep_x in range(repetitions):
+                for value in [int(x) for x in line]:
+                    row.append(((value + rep_y + rep_x - 1) % 9) + 1)
+            grid.append(row)
 
     graph = Graph()
     for i, row in enumerate(grid):
