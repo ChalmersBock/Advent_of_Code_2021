@@ -1,25 +1,5 @@
 import sys
 
-hex_to_bit_dict = {
-    "0": "0000",
-    "1": "0001",
-    "2": "0010",
-    "3": "0011",
-    "4": "0100",
-    "5": "0101",
-    "6": "0110",
-    "7": "0111",
-    "8": "1000",
-    "9": "1001",
-    "A": "1010",
-    "B": "1011",
-    "C": "1100",
-    "D": "1101",
-    "E": "1110",
-    "F": "1111"
-}
-
-
 
 class Package:
 
@@ -33,7 +13,6 @@ class Package:
     def calculate_package(self):
         value = 0
         if self.type_id == 0:
-            value = 0
             for package in self.sub_packages:
                 value += package.calculate_package()
         elif self.type_id == 1:
@@ -51,15 +30,12 @@ class Package:
         elif self.type_id == 4:
             value = self.value
         elif self.type_id == 5:
-            value = 0
             if self.sub_packages[0].calculate_package() > self.sub_packages[1].calculate_package():
                 value = 1
         elif self.type_id == 6:
-            value = 0
             if self.sub_packages[0].calculate_package() < self.sub_packages[1].calculate_package():
                 value = 1
         elif self.type_id == 7:
-            value = 0
             if self.sub_packages[0].calculate_package() == self.sub_packages[1].calculate_package():
                 value = 1
         return value
@@ -76,7 +52,7 @@ def parse_bits_to_int(bit_stack, number_of_bits):
     return int(parse_bits(bit_stack, number_of_bits), 2)
 
 
-def parse_literal_value(bit_stack, can_have_trail):
+def parse_literal_value(bit_stack):
     last_bits = False
     full_bit_string = ""
     while not last_bits:
@@ -84,12 +60,10 @@ def parse_literal_value(bit_stack, can_have_trail):
         if bit_string[0] == '0':
             last_bits = True
         full_bit_string += bit_string[1:]
-        if can_have_trail and '1' not in bit_stack:
-            break  # Trailing 0s
     return int(full_bit_string, 2)
 
 
-def identify_package(bit_stack, can_have_trail):
+def identify_package(bit_stack):
     package = Package()
 
     package.version = parse_bits_to_int(bit_stack, 3)
@@ -105,15 +79,15 @@ def identify_package(bit_stack, can_have_trail):
                 bit_stack.pop()
 
             while small_stack:
-                package.sub_packages.append(identify_package(small_stack, False))
+                package.sub_packages.append(identify_package(small_stack))
 
         elif package.length_id == 1:
             number_of_sub_packages = parse_bits_to_int(bit_stack, 11)
             for _ in range(number_of_sub_packages):
-                package.sub_packages.append(identify_package(bit_stack, True))
+                package.sub_packages.append(identify_package(bit_stack))
 
     else:
-        package.value = parse_literal_value(bit_stack, can_have_trail)
+        package.value = parse_literal_value(bit_stack)
 
     return package
 
@@ -122,7 +96,7 @@ def parse_file():
     with open("data", "r", encoding='utf-8') as file:
         bit_string = ""
         for hex_char in file.readline().strip():
-            bit_string += hex_to_bit_dict[hex_char]
+            bit_string += bin(int(hex_char, 16))[2:].zfill(4)
 
     package = None
     bit_stack = []
@@ -130,7 +104,7 @@ def parse_file():
         bit_stack.append(bit)
 
     while bit_stack:
-        package = identify_package(bit_stack, True)
+        package = identify_package(bit_stack)
         if '1' not in bit_stack:
             break  # Trailing 0s
 
@@ -139,8 +113,8 @@ def parse_file():
     while package_stack:
         current_package = package_stack.pop()
         total_version_sum += current_package.version
-        for p in current_package.sub_packages:
-            package_stack.append(p)
+        for pack in current_package.sub_packages:
+            package_stack.append(pack)
 
     print(f'Total sum of versions: {total_version_sum}')
 
