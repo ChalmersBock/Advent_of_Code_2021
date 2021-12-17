@@ -3,16 +3,13 @@ import re
 from collections import defaultdict
 
 
-# We can ignore X, since X and Y don't affect each other with anything other than having to
-# hit the box on the same iteration. However, X can stop in the box, giving Y infinitely many
-# iterations to get to the box, which is what were looking for when wanting to reach high up
 def calculate_max_y(positions):
     largest_y = -sys.maxsize
     for pos in positions:
         largest_y = max(largest_y, pos[1])
 
     highest_y = 0
-    for i in range (largest_y, 0, -1):
+    for i in range(largest_y, 0, -1):
         highest_y += i
 
     print(f'Highest possible y: {highest_y}')
@@ -39,7 +36,6 @@ def find_possible_x_angles(box, info_dict):
 
 
 def find_possible_y_angles(box, info_dict, infinity_list):
-
     for y_start in range(box["y_lower"], 1000):
         keep_simulating = True
         y_pos = 0
