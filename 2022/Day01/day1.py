@@ -13,14 +13,9 @@ def most_calories(number):
             elf_calories.append(calories)
 
     elf_calories.sort(reverse=True)
-
-    total = 0
-    for i in range(0, number):
-        total += elf_calories[i]
-
-    return total
+    return sum(elf_calories[0:number])
 
 
 if __name__ == '__main__':
     print("Elf that has the most calories has: " + str(most_calories(1)))
-    print("Top three elfs that have the most calories total have: " + str(most_calories(3)))
+    print("Top three elfs that have the most calories in total have: " + str(most_calories(3)))
