@@ -12,7 +12,6 @@ def update_t_pos(h_pos, t_pos):
         y_change = 1
     elif y_diff < -1 or (y_diff == -1 and abs(x_diff) > 1):
         y_change = -1
-
     return t_pos[0] + x_change, t_pos[1] + y_change
 
 
@@ -28,9 +27,8 @@ def determine_direction(direction):
     return 0, 0
 
 
-def calculate_visits_for_tail():
+def calculate_visits_for_tail(tail_length):
     moves = []
-
     with open("data", "r", encoding='utf-8') as file:
         for line in [line.strip() for line in file.readlines()]:
             direction, steps = line.split(" ")
@@ -41,21 +39,24 @@ def calculate_visits_for_tail():
                 }
             )
 
-    t_pos = (0, 0)
-    h_pos = (0, 0)
+    rope = [(0, 0)]
+    for i in range(tail_length):
+        rope.append((0, 0))
     visited_pos = {(0, 0)}
 
     for move in moves:
         x_change, y_change = determine_direction(move["dir"])
 
         for i in range(move["steps"]):
-            h_pos = (h_pos[0] + x_change, h_pos[1] + y_change)
-            t_pos = update_t_pos(h_pos, t_pos)
-            visited_pos.add(t_pos)
-
+            rope[0] = (rope[0][0] + x_change, rope[0][1] + y_change)
+            for seg in range(1, len(rope)):
+                rope[seg] = update_t_pos(rope[seg-1], rope[seg])
+                if seg == len(rope) - 1:
+                    visited_pos.add(rope[seg])
     return len(visited_pos)
 
 
 if __name__ == '__main__':
-    print("Tail has visited:", str(calculate_visits_for_tail()), "spots")
+    print("Tail (len 1) has visited:", str(calculate_visits_for_tail(1)), "spots")
+    print("Tail (len 9) has visited:", str(calculate_visits_for_tail(9)), "spots")
 
