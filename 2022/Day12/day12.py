@@ -1,5 +1,4 @@
 import math
-
 from dijkstar import Graph, find_path, algorithm
 
 
@@ -67,4 +66,3 @@ def parse_map(start_pos):
 if __name__ == '__main__':
     parse_map(["S"])
     parse_map(["S", "a"])
-
