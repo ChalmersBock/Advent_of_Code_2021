@@ -65,7 +65,6 @@ def build_directory_tree():
                     value, name = line.split(" ")
                     node = Tree(int(value), name.strip())
                     tree_pos.add_child(node)
-
     return root
 
 
@@ -111,4 +110,3 @@ def free_up_space(available, needed):
 if __name__ == '__main__':
     sum_of_directories()
     free_up_space(70000000, 30000000)
-
